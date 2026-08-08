@@ -1,5 +1,25 @@
-document.getElementById("contact-form").addEventListener("submit", function(e) {
-  e.preventDefault();
-  document.getElementById("form-msg").textContent = "✅ Gracias por tu mensaje. Te contactaremos pronto.";
-  this.reset();
+document.getElementById("contact-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const form = this;
+    const formMsg = document.getElementById("form-msg");
+
+    try {
+        const response = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        if (response.ok) {
+            formMsg.textContent = "✅ Gracias por tu mensaje. Te contactaremos pronto.";
+            form.reset();
+        } else {
+            formMsg.textContent = "❌ Ha ocurrido un error. Inténtalo de nuevo.";
+        }
+    } catch (error) {
+        formMsg.textContent = "❌ Ha ocurrido un error. Inténtalo de nuevo.";
+    }
 });
