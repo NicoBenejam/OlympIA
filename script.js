@@ -14,11 +14,17 @@ document.getElementById("contact-form").addEventListener("submit", async functio
         });
 
         if (response.ok) {
-            formMsg.textContent = "✅ Gracias por tu mensaje. Te contactaremos pronto.";
             form.reset();
+
+            document.getElementById("nombre").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("mensaje").value = "";
+
+            formMsg.textContent = "✅ Gracias por tu mensaje. Te contactaremos pronto.";
         } else {
             formMsg.textContent = "❌ Ha ocurrido un error. Inténtalo de nuevo.";
         }
+
     } catch (error) {
         formMsg.textContent = "❌ Ha ocurrido un error. Inténtalo de nuevo.";
     }
